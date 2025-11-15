@@ -26,12 +26,9 @@
       margin: 0;
       min-height: 100vh;
       color: var(--eggshell);
-      display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 40px 10px;
       position: relative;
-      overflow: hidden;
+      overflow-y: auto; /* Scrollbar erlauben */
     }
 
     /* Hintergrundvideo */
@@ -48,8 +45,7 @@
     main {
       width: 100%;
       max-width: 1100px;
-      display: flex;
-      justify-content: center;
+      margin: 0 auto;
     }
 
     .page-frame {
@@ -67,6 +63,7 @@
       animation: fadeIn 0.7s ease-out;
       position: relative;
       overflow: hidden;
+      margin: 0 auto; /* zentrieren */
     }
 
     .page-inner {
@@ -122,7 +119,7 @@
       border: none;
       padding: 12px 28px;
       border-radius: 999px;
-      font-size: 16px;
+      font-size: 16px;           /* gleiche Schriftgröße für alle Buttons */
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -133,7 +130,7 @@
       text-decoration: none;
       transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, opacity 0.15s ease;
       box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-      min-width: 220px;
+      min-width: 230px;          /* gleiche Breite */
     }
 
     .btn-main:hover {
@@ -169,9 +166,7 @@
       gap: 16px;
     }
 
-    .flow-block {
-      margin-top: 40px;
-    }
+    .flow-block { margin-top: 40px; }
 
     .tagespunkte {
       margin-top: 28px;
@@ -227,13 +222,9 @@
       margin-top: 2px;
     }
 
-    .menucard input {
-      margin-right: 8px;
-    }
+    .menucard input { margin-right: 8px; }
 
-    .menucard:hover {
-      background: rgba(0,0,0,0.2);
-    }
+    .menucard:hover { background: rgba(0,0,0,0.2); }
 
     form {
       max-width: 440px;
@@ -262,11 +253,6 @@
       outline: none;
       border-color: var(--gold);
       box-shadow: 0 0 0 1px rgba(251,210,131,0.4);
-    }
-
-    datalist option {
-      background: var(--bordeaux);
-      color: var(--eggshell);
     }
 
     .status-text {
@@ -371,14 +357,12 @@
             <option value="Kjell"></option>
           </datalist>
 
-          <!-- Kennzeichnung, dass dies die Zusage ist -->
           <input type="hidden" name="typ" value="Zusage">
 
           <div class="button-row">
             <button type="submit" class="btn-main">
               Zusage bestätigen
             </button>
-            <!-- NEU: Button zum Tagesablauf, anfangs deaktiviert -->
             <button
               type="button"
               class="btn-main"
@@ -437,7 +421,6 @@
         </div>
 
         <div class="button-row">
-          <!-- JETZT: Beide als gleich große Buttons -->
           <a href="hochzeit.ics" class="btn-main" download>
             Zum Kalender hinzufügen
           </a>
@@ -503,7 +486,6 @@
           <p style="font-size:20px;">Dessertteller</p>
           <p>Panna Cotta, Mousse au chocolat und ein saisonales Sorbet</p>
 
-          <!-- Kennzeichnung, dass dies Menüzusage ist -->
           <input type="hidden" name="typ" value="Menüauswahl">
 
           <div class="button-row">
@@ -520,7 +502,7 @@
         </button>
       </section>
 
-      <!-- VIEW 5: DANKE (optional) -->
+      <!-- VIEW 5: DANKE -->
       <section data-view="danke">
         <h3>Danke! 💛</h3>
         <p style="margin-top:18px;">
@@ -543,6 +525,8 @@
     sections.forEach(sec =>
       sec.classList.toggle('is-active', sec.getAttribute('data-view') === view)
     );
+    // Beim View-Wechsel zum Anfang scrollen
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   document.querySelectorAll('[data-goto]').forEach(btn =>
     btn.addEventListener('click', () => showView(btn.getAttribute('data-goto')))
@@ -568,7 +552,6 @@
         if (response.ok) {
           rsvpStatus.textContent = 'Danke! Eure Zusage ist bei uns angekommen.';
           rsvpForm.reset();
-          // Button zum Tagesablauf freischalten
           if (toScheduleBtn) {
             toScheduleBtn.disabled = false;
           }
