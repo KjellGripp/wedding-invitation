@@ -338,11 +338,12 @@
           ob ihr dabei sein könnt.
         </p>
 
-        <form id="rsvp-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:22px;">
+        <form id="rsvp-form" style="margin-top:22px;">
           <label>
             Dein/Euer Name
             <input
               type="text"
+              id="name-input"
               name="name"
               list="namenliste"
               placeholder="Dein/Euer Name"
@@ -356,8 +357,6 @@
             <option value="Jens"></option>
             <option value="Kjell"></option>
           </datalist>
-
-          <input type="hidden" name="typ" value="Zusage">
 
           <div class="button-row">
             <button type="submit" class="btn-main">
@@ -445,7 +444,7 @@
 
         <p style="font-size:20px;">Hauptgang</p>
 
-        <form id="menu-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:12px;">
+        <form id="menu-form" style="margin-top:12px;">
           <div class="menucards">
             <label class="menucard">
               <input type="radio" name="hauptgang" value="Tranchiertes Kalbsfilet" required>
@@ -486,8 +485,6 @@
           <p style="font-size:20px;">Dessertteller</p>
           <p>Panna Cotta, Mousse au chocolat und ein saisonales Sorbet</p>
 
-          <input type="hidden" name="typ" value="Menüauswahl">
-
           <div class="button-row">
             <button type="submit" class="btn-main">
               Auswahl bestätigen
@@ -520,8 +517,16 @@
   </div>
 </main>
 
-<script>
-  // View-Navigation
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  // Supabase Konfiguration (anon key, RLS bei dir aus)
+  const SUPABASE_URL = 'https://dzzqmswinpreukaijf.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6emFxbXN3aW5wcmNldWthamZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMxOTEyODQsImV4cCI6MjA3ODc2NzI4NH0.eIg8hx3kledXENr6CuOMbc4KonENfz6TSpl2be4hwJI';
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // View-Navigation (unverändert)
   const sections = document.querySelectorAll('[data-view]');
   function showView(view) {
     sections.forEach(sec =>
@@ -533,39 +538,47 @@
     btn.addEventListener('click', () => showView(btn.getAttribute('data-goto')))
   );
 
-  // Zusage-Formular
+  // Zustand über alle Schritte
+  let guestName = '';
+
+  // RSVP-Formular (nur Name speichern & Button freischalten)
   const rsvpForm = document.getElementById('rsvp-form');
   const rsvpStatus = document.getElementById('rsvp-status');
+  const nameInput = document.getElementById('name-input');
   const toScheduleBtn = document.getElementById('to-schedule-btn');
 
   if (rsvpForm) {
-    rsvpForm.addEventListener('submit', async (e) => {
+    rsvpForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      rsvpStatus.textContent = 'Sende deine Zusage...';
-
-      const data = new FormData(rsvpForm);
-      try {
-        const response = await fetch(rsvpForm.action, {
-          method: rsvpForm.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-          rsvpStatus.textContent = 'Danke! Eure Zusage ist bei uns angekommen.';
-          rsvpForm.reset();
-          if (toScheduleBtn) {
-            toScheduleBtn.disabled = false;
-          }
-        } else {
-          rsvpStatus.textContent = 'Ups, da ist etwas schiefgelaufen. Bitte versucht es später noch einmal.';
-        }
-      } catch (err) {
-        rsvpStatus.textContent = 'Verbindungsfehler. Bitte überprüft eure Internetverbindung.';
+      const name = nameInput.value.trim();
+      if (!name) {
+        rsvpStatus.textContent = 'Bitte gib deinen Namen ein.';
+        return;
+      }
+      guestName = name;
+      rsvpStatus.textContent = 'Danke! Deine Zusage ist gespeichert – weiter zum Tagesablauf.';
+      if (toScheduleBtn) {
+        toScheduleBtn.disabled = false;
       }
     });
   }
 
-  // Menü-Formular – nach Erfolg auf „Vielen Dank“-Seite wechseln
+  // Helper: prüfen, ob Name schon in Supabase existiert
+  async function hasAlreadyAnswered(name) {
+    const { data, error } = await supabase
+      .from('responses')
+      .select('id')
+      .eq('name', name)
+      .limit(1);
+
+    if (error) {
+      console.error('Supabase-Fehler beim Check:', error);
+      return false; // bei Fehler lieber nicht blocken
+    }
+    return data && data.length > 0;
+  }
+
+  // Menü-Formular – HIER passiert der Datenbank-Call
   const menuForm = document.getElementById('menu-form');
   const menuStatus = document.getElementById('menu-status');
 
@@ -574,30 +587,53 @@
       e.preventDefault();
       menuStatus.textContent = 'Sende deine Menüauswahl...';
 
-      const data = new FormData(menuForm);
-      try {
-        const response = await fetch(menuForm.action, {
-          method: menuForm.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-          menuForm.reset();
-          menuStatus.textContent = '';
-          showView('danke');   // ← hier kommt jetzt deine Vielen-Dank-Seite
-        } else {
-          menuStatus.textContent = 'Da ging etwas schief – bitte versuche es später erneut.';
-        }
-      } catch (err) {
-        menuStatus.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung.';
+      if (!guestName) {
+        alert('Bitte gib zuerst deinen Namen bei der Anmeldung an.');
+        menuStatus.textContent = 'Name fehlt – bitte zuerst anmelden.';
+        showView('rsvp');
+        return;
       }
+
+      const selected = menuForm.querySelector('input[name="hauptgang"]:checked');
+      if (!selected) {
+        menuStatus.textContent = 'Bitte wähle einen Hauptgang aus.';
+        return;
+      }
+
+      const essen = selected.value;
+      const teilnahme = 'Ja';  // hier kannst du später noch differenzieren, falls nötig
+
+      // Check auf doppelte Einträge
+      const already = await hasAlreadyAnswered(guestName);
+      if (already) {
+        alert('Für diesen Namen wurde bereits eine Rückmeldung gespeichert. Wenn sich etwas geändert hat, meldet euch bitte direkt bei Glennie & Kjell.');
+        menuStatus.textContent = 'Du hast dich bereits gemeldet.';
+        return;
+      }
+
+      // Insert in Supabase
+      const { error } = await supabase
+        .from('responses')
+        .insert([{
+          name: guestName,
+          essen,
+          teilnahme,
+          created_at: new Date().toISOString()
+        }]);
+
+      if (error) {
+        console.error('Supabase insert error:', error);
+        menuStatus.textContent = 'Da ging etwas schief – bitte versuche es später erneut.';
+        return;
+      }
+
+      // Erfolgreich → Danke-Seite
+      menuForm.reset();
+      menuStatus.textContent = '';
+      showView('danke');
     });
   }
 </script>
 
 </body>
 </html>
-
-
-
-
