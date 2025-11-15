@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Glennie & Kjell – Hochzeitseinladung</title>
+  <title>Wedding Invitation Glennie & Kjell</title>
 
   <!-- Schriften -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,10 +12,10 @@
   <style>
     :root {
       --bordeaux: #21060C;
-      --bordeaux-soft: rgba(46, 10, 18, 0.55);
+      --bordeaux-soft: rgba(46, 10, 18, 0.85);
       --gold: #fbd283;
+      --gold-soft: #e2b861;
       --eggshell: #f0ead6;
-      --eggshell-soft: rgba(240, 234, 214, 0.8);
     }
 
     * { box-sizing: border-box; }
@@ -37,73 +37,72 @@
     /* Hintergrundvideo */
     #bg-video {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       z-index: -1;
-      filter: brightness(0.8);
+      filter: brightness(0.75);
     }
 
     main {
       width: 100%;
-      max-width: 960px;
+      max-width: 1100px;
       display: flex;
       justify-content: center;
     }
 
-    .ticket {
+    .page-frame {
       width: 100%;
-      max-width: 700px;
+      max-width: 980px;
       background: var(--bordeaux-soft);
       border-radius: 28px;
       border: 1px solid rgba(255, 215, 160, 0.45);
       box-shadow:
         0 0 35px rgba(0, 0, 0, 0.6),
-        0 0 25px rgba(255, 200, 120, 0.25);
-      padding: 40px 32px 32px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+        0 0 25px rgba(255, 200, 120, 0.2);
+      padding: 40px 40px 32px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      animation: fadeIn 0.7s ease-out;
       position: relative;
       overflow: hidden;
-      animation: fadeIn 0.7s ease-out;
     }
 
-    .ticket-inner {
-      max-width: 580px;
+    .page-inner {
+      max-width: 800px;
       margin: 0 auto;
       text-align: center;
     }
 
     h1 {
       font-family: "Great Vibes", cursive;
-      font-size: 56px;
+      font-size: 62px;
       margin: 0;
       line-height: 1.1;
       color: var(--gold);
     }
 
     h2 {
-      font-size: 22px;
-      margin: 10px 0 0;
+      font-size: 24px;
+      margin: 12px 0 0;
       font-weight: 400;
     }
 
     h3 {
-      font-size: 20px;
-      margin: 24px 0 12px;
+      font-family: "Great Vibes", cursive;
+      font-size: 46px;
       color: var(--gold);
-      text-align: left;
+      margin: 0 0 12px;
     }
 
-    p { margin: 6px 0; font-size: 17px; }
+    p { margin: 6px 0; font-size: 18px; }
 
     .subtitle-small {
       text-transform: uppercase;
       letter-spacing: .22em;
       font-size: 13px;
-      opacity: 0.85;
+      opacity: 0.9;
     }
 
     .ring-icon {
@@ -117,73 +116,11 @@
       height: auto;
     }
 
-    .ticket-section {
-      margin-top: 28px;
-      text-align: left;
-      font-size: 16px;
-    }
-
-    .info-grid {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 40px;
-      margin-top: 10px;
-      text-align: center;
-      flex-wrap: wrap;
-    }
-
-    .info-label {
-      text-transform: uppercase;
-      letter-spacing: .18em;
-      font-size: 11px;
-      opacity: 0.85;
-    }
-
-    .info-value { font-size: 16px; margin-top: 2px; }
-
-    label {
-      display: block;
-      margin-bottom: 10px;
-      text-align: left;
-      font-size: 15px;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 9px;
-      border: 1px solid rgba(255, 215, 160, 0.6);
-      background: rgba(247, 242, 233, 0.1);
-      color: var(--eggshell);
-      font-family: inherit;
-      font-size: 15px;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 70px;
-    }
-
-    input[type="radio"],
-    input[type="checkbox"] {
-      margin-right: 8px;
-    }
-
-    .radio-group,
-    .check-group {
-      margin-bottom: 6px;
-      text-align: left;
-      font-size: 15px;
-    }
-
     .btn-main {
-      background: var(--eggshell-soft);
+      background: var(--gold);
       color: var(--bordeaux);
       border: none;
-      padding: 12px 24px;
+      padding: 12px 28px;
       border-radius: 999px;
       font-size: 16px;
       font-weight: 600;
@@ -191,45 +128,173 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      margin-top: 22px;
+      margin-top: 26px;
       text-decoration: none;
       transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
       box-shadow: 0 10px 20px rgba(0,0,0,0.25);
     }
 
     .btn-main:hover {
-      background: #ffffff;
+      background: #ffe09a;
       transform: translateY(-1px);
       box-shadow: 0 14px 24px rgba(0,0,0,0.28);
     }
 
-    .btn-ghost {
+    .btn-sec {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold-soft);
+      padding: 10px 24px;
+      border-radius: 999px;
+      font-size: 15px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-sec:hover {
+      background: rgba(0,0,0,0.18);
+    }
+
+    .btn-link {
       border: none;
       background: transparent;
-      color: rgba(251, 210, 131, 0.75);
-      font-size: 13px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      margin-top: 20px;
+      color: rgba(251, 210, 131, 0.8);
+      font-size: 14px;
+      text-decoration: none;
+      margin-top: 18px;
       cursor: pointer;
     }
 
-    .btn-ghost:hover { color: var(--gold); }
+    .btn-link:hover { color: var(--gold); }
 
     .button-row {
-      margin-top: 22px;
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .muted-small {
+      margin-top: 18px;
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    /* Layout für Inhalt */
+    .flow-block {
+      margin-top: 40px;
+    }
+
+    .tagespunkte {
+      margin-top: 28px;
+      text-align: left;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tagespunkt {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 22px;
+      align-items: baseline;
+    }
+
+    .tages-left {
+      font-family: "Great Vibes", cursive;
+      font-size: 32px;
+      color: var(--gold);
+    }
+
+    .tages-right {
+      text-align: right;
+      font-size: 17px;
+    }
+
+    .menucards {
+      margin-top: 30px;
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 10px;
+      text-align: left;
     }
 
-    @media (min-width: 640px) {
-      .button-row { flex-direction: row; justify-content: center; }
+    .menucard {
+      border-radius: 10px;
+      border: 1px solid rgba(255, 215, 160, 0.6);
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
 
-    .status-text { margin-top: 12px; font-size: 14px; opacity: 0.9; }
+    .menucard-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
 
+    .menucard-desc {
+      font-size: 15px;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    .menucard input {
+      margin-right: 8px;
+    }
+
+    .menucard:hover {
+      background: rgba(0,0,0,0.2);
+    }
+
+    /* Inputs RSVP */
+    form {
+      max-width: 440px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 215, 160, 0.6);
+      background: rgba(247, 242, 233, 0.07);
+      color: var(--eggshell);
+      font-family: inherit;
+      font-size: 15px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px rgba(251,210,131,0.4);
+    }
+
+    datalist option {
+      background: var(--bordeaux);
+      color: var(--eggshell);
+    }
+
+    .status-text {
+      margin-top: 12px;
+      font-size: 14px;
+      opacity: 0.9;
+      text-align: center;
+    }
+
+    /* Views */
     [data-view] { display: none; }
     [data-view].is-active { display: block; }
 
@@ -238,41 +303,23 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Mobile */
+    /* Responsive */
     @media (max-width: 768px) {
-      body {
-        padding: 20px 8px;
-      }
-
-      .ticket {
-        padding: 24px 18px 22px;
-        border-radius: 20px;
-      }
-
-      h1 { font-size: 42px; }
+      body { padding: 20px 8px; }
+      .page-frame { padding: 24px 18px 22px; border-radius: 20px; }
+      h1 { font-size: 44px; }
       h2 { font-size: 18px; }
-      h3 { font-size: 17px; }
-      p, .info-value { font-size: 15px; }
-      .info-grid { gap: 16px; }
+      h3 { font-size: 34px; }
+      p { font-size: 16px; }
+      .tagespunkt { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .tages-right { text-align: left; }
       .ring-icon img { width: 100px; }
-      .btn-main { font-size: 15px; padding: 10px 20px; }
     }
 
     @media (max-width: 480px) {
-      body {
-        padding: 16px 6px;
-      }
-
-      .ticket {
-        padding: 20px 15px;
-      }
-
-      h1 { font-size: 34px; }
+      h1 { font-size: 36px; }
       h2 { font-size: 16px; }
-      h3 { font-size: 16px; }
-      p, .info-value { font-size: 14px; }
-      .ring-icon img { width: 80px; }
-      .btn-main { font-size: 14px; padding: 8px 18px; }
+      h3 { font-size: 30px; }
     }
   </style>
 </head>
@@ -284,14 +331,15 @@
   </video>
 
 <main>
-  <div class="ticket">
-    <div class="ticket-inner">
+  <div class="page-frame">
+    <div class="page-inner">
 
       <!-- VIEW 1: EINLADUNG -->
       <section data-view="invitation" class="is-active">
-        <p class="subtitle-small">Festival Wedding</p>
+        <p class="subtitle-small">HOCHZEITSEINLADUNG</p>
 
         <div style="display:flex; flex-direction:column; align-items:center; margin-top:10px;">
+          <p style="margin:4px 0 0; font-size:16px;">von</p>
           <h1>Glennie</h1>
           <div class="ring-icon">
             <img src="ring.png" alt="Ringe">
@@ -299,150 +347,198 @@
           <h1>Kjell</h1>
         </div>
 
-        <h2 style="margin-top:24px;">laden euch herzlich zu unserem Hochzeitsfestival ein</h2>
+        <p class="flow-block" style="margin-top:26px; font-size:18px;">
+          am <strong>26.06.2026 um 15 Uhr</strong><br>
+          in <strong>Strande</strong>
+        </p>
 
-        <div class="ticket-section">
-          <div class="info-grid">
-            <div>
-              <div class="info-label">Datum</div>
-              <div class="info-value">26.06. – 28.06.2026</div>
-            </div>
-            <div>
-              <div class="info-label">Ort</div>
-              <div class="info-value">Surendorf</div>
-            </div>
-          </div>
+        <div class="button-row">
+          <button class="btn-main" data-goto="rsvp">
+            Ich bin dabei!
+          </button>
         </div>
 
-        <button class="btn-main" data-goto="rsvp">
-          Ich bin dabei! <span>→</span>
+        <button class="btn-link" data-goto="rsvp" style="margin-top:22px;">
+          Zur Admin-Ansicht
         </button>
       </section>
 
-      <!-- VIEW 2: RSVP (mit allen Daten) -->
+      <!-- VIEW 2: ZUSAGE / RSVP -->
       <section data-view="rsvp">
-        <h1>Wir freuen uns auf euch!</h1>
-        <h2>Bitte gebt uns Bescheid, ob ihr dabei sein könnt.</h2>
+        <h3>Wir freuen uns auf Euch!</h3>
+        <p>
+          Bitte gebt uns bis zum <strong>26.04.2026</strong> Bescheid,<br>
+          ob ihr dabei sein könnt.
+        </p>
 
-        <form id="rsvp-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:24px; text-align:left;">
-
-          <h3>👤 Wer seid ihr?</h3>
+        <form id="rsvp-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:22px;">
           <label>
-            Name:
-            <input type="text" name="name" placeholder="Vor- und Nachname" required>
-          </label>
-          <label>
-            Mit wie vielen Personen kommst du insgesamt?
-            <input type="number" name="anzahl_personen" min="1" max="10" placeholder="z. B. 2" required>
-          </label>
-
-          <h3>📅 An welchen Tagen seid ihr da?</h3>
-          <div class="check-group"><label><input type="checkbox" name="tage" value="Freitag"> Freitag (Anreise & Warm-up)</label></div>
-          <div class="check-group"><label><input type="checkbox" name="tage" value="Samstag"> Samstag (Trauung & Party)</label></div>
-          <div class="check-group"><label><input type="checkbox" name="tage" value="Sonntag"> Sonntag (Brunch & Ausklang)</label></div>
-
-          <h3>🍽️ Hauptmenü (Abendessen)</h3>
-          <div class="radio-group"><label><input type="radio" name="hauptmenue" value="Fleisch" required> Fleischmenü</label></div>
-          <div class="radio-group"><label><input type="radio" name="hauptmenue" value="Fisch"> Fischmenü</label></div>
-          <div class="radio-group"><label><input type="radio" name="hauptmenue" value="Vegetarisch"> Vegetarisch</label></div>
-          <div class="radio-group"><label><input type="radio" name="hauptmenue" value="Vegan"> Vegan</label></div>
-
-          <h3>🥐 Brunch</h3>
-          <div class="radio-group"><label><input type="radio" name="brunch" value="Ja"> Ja, ich bin beim Brunch dabei</label></div>
-          <div class="radio-group"><label><input type="radio" name="brunch" value="Nein"> Nein, ich nehme nicht am Brunch teil</label></div>
-
-          <h3>📩 Teilnahme</h3>
-          <div class="radio-group"><label><input type="radio" name="teilnahme" value="Ja" required> Ich bin dabei 🎉</label></div>
-          <div class="radio-group"><label><input type="radio" name="teilnahme" value="Nein"> Ich kann leider nicht kommen 😢</label></div>
-
-          <h3>🏕 Unterkunft</h3>
-          <div class="radio-group"><label><input type="radio" name="unterkunft" value="Zelt"> mit Zelt</label></div>
-          <div class="radio-group"><label><input type="radio" name="unterkunft" value="Camper"> mit Camper</label></div>
-          <div class="radio-group"><label><input type="radio" name="unterkunft" value="Schlafplatz bei jemandem"> ich habe einen Schlafplatz bei jemandem</label></div>
-          <div class="radio-group"><label><input type="radio" name="unterkunft" value="Nicht dabei"> leider gar nicht dabei</label></div>
-
-          <h3>💬 Allergien & Hinweise</h3>
-          <label>
-            Gibt es etwas, das wir wissen sollten? (Allergien, Unverträglichkeiten, Wünsche)
-            <textarea name="allergien" placeholder="z. B. keine Nüsse, vegetarisch, laktosefrei …"></textarea>
+            Dein/Euer Name
+            <input
+              type="text"
+              name="name"
+              list="namenliste"
+              placeholder="Dein/Euer Name"
+              required
+            >
           </label>
 
-          <h3>📝 Sonstiges</h3>
-          <label>
-            Alles, was ihr uns noch sagen möchtet (z. B. Songwünsche, Grüße …)
-            <textarea name="sonstiges"></textarea>
-          </label>
+          <datalist id="namenliste">
+            <option value="Finn Ole"></option>
+            <option value="Glennie"></option>
+            <option value="Jens"></option>
+            <option value="Kjell"></option>
+          </datalist>
+
+          <!-- Kennzeichnung, dass dies die Zusage ist -->
+          <input type="hidden" name="typ" value="Zusage">
 
           <div class="button-row">
-            <button type="submit" class="btn-main">Antwort senden</button>
-            <button type="button" class="btn-main" data-goto="ablauf">Weiter zum Ablauf</button>
+            <button type="submit" class="btn-main">
+              Zusage bestätigen
+            </button>
           </div>
 
-          <p id="form-status" class="status-text"></p>
+          <p id="rsvp-status" class="status-text"></p>
         </form>
 
-        <button class="btn-ghost" data-goto="invitation">← Zurück zur Einladung</button>
+        <button class="btn-link" data-goto="invitation">
+          ← Zurück zur Einladung
+        </button>
+
+        <button class="btn-link" data-goto="tagesablauf">
+          → Zum Tagesablauf
+        </button>
       </section>
 
-      <!-- VIEW 3: ABLAUF -->
-      <section data-view="ablauf">
-        <h1>Festival Daten</h1>
-        <h2>Was euch an unserem Wochenende erwartet</h2>
+      <!-- VIEW 3: TAGESABLAUF -->
+      <section data-view="tagesablauf">
+        <h3>Tagesablauf</h3>
+        <p>Wir können es kaum erwarten, diesen Tag mit euch zu verbringen.</p>
 
-        <div class="ticket-section">
-          <div class="info-grid">
-            <div>
-              <div class="info-label">Location</div>
-              <div class="info-value">Surendorf</div>
+        <div class="tagespunkte">
+          <div class="tagespunkt">
+            <div class="tages-left">Trauung &amp; Sektempfang</div>
+            <div class="tages-right">
+              15 Uhr<br>
+              am Bermuda Dreieck Strande
             </div>
-            <div>
-              <div class="info-label">Einlass</div>
-              <div class="info-value">16 Uhr</div>
+          </div>
+
+          <div class="tagespunkt">
+            <div class="tages-left">Fotoshooting /<br>Kaffee &amp; Kuchen</div>
+            <div class="tages-right">
+              16:30 Uhr<br>
+              im Strandhotel
             </div>
-            <div>
-              <div class="info-label">Ankunft Brautpaar</div>
-              <div class="info-value">ca. 22:30 Uhr</div>
+          </div>
+
+          <div class="tagespunkt">
+            <div class="tages-left">Dinner</div>
+            <div class="tages-right">
+              18 Uhr
             </div>
-            <div>
-              <div class="info-label">Musik</div>
-              <div class="info-value">ab 23 Uhr</div>
+          </div>
+
+          <div class="tagespunkt">
+            <div class="tages-left">Party</div>
+            <div class="tages-right">
+              22 Uhr<br>
+              auf dem Festivalgelände
             </div>
           </div>
         </div>
 
-        <p style="margin-top:18px;">
-          Bringt gerne Campingstuff, gute Laune und eure liebsten Festival-Outfits mit –
-          wir feiern mit euch ein ganzes Wochenende lang.
-        </p>
-
         <div class="button-row">
-          <button class="btn-main" data-goto="festivalmap">Weiter zur Festivalmap</button>
-          <button class="btn-main" data-goto="rsvp">Zurück zur Anmeldung</button>
+          <!-- Optional: später echte .ics-Datei hier verlinken -->
+          <a href="hochzeit.ics" class="btn-sec" download>
+            Zum Kalender hinzufügen
+          </a>
+          <button class="btn-main" data-goto="menue">
+            Zur Menüauswahl
+          </button>
         </div>
+
+        <button class="btn-link" data-goto="rsvp">
+          ← Zurück zur Anmeldung
+        </button>
       </section>
 
-      <!-- VIEW 4: MAP -->
-      <section data-view="festivalmap">
-        <h1>Festivalmap</h1>
-        <h2>Hier findet ihr später Lageplan & Bereiche</h2>
+      <!-- VIEW 4: MENÜAUSWAHL -->
+      <section data-view="menue">
+        <h3>Menüauswahl</h3>
 
-        <p style="margin-top:20px;">
-          Campingbereich, Dancefloor, Food-Area, Chillout-Zone und mehr –
-          die genaue Map folgt noch, aber ihr könnt euch schon mal freuen. ✨
-        </p>
+        <p style="margin-top:10px; font-size:20px;">Vorspeisenteller</p>
+        <p>Tomate-Mozzarella, Anti-Pasti, Bruschetta, Argentinische Wildgarnele</p>
 
-        <div class="button-row">
-          <button class="btn-main" data-goto="danke">Anmeldung abschließen</button>
-          <button class="btn-main" data-goto="ablauf">Zurück zu den Festivaldaten</button>
-        </div>
+        <p style="margin:18px 0;">***</p>
+
+        <p style="font-size:20px;">Hauptgang</p>
+
+        <form id="menu-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:12px;">
+          <div class="menucards">
+            <label class="menucard">
+              <input type="radio" name="hauptgang" value="Tranchiertes Kalbsfilet" required>
+              <div class="menucard-title">Tranchiertes Kalbsfilet</div>
+              <div class="menucard-desc">
+                mit Rosmarinkartoffeln, Speckbohnen und Jus
+              </div>
+            </label>
+
+            <label class="menucard">
+              <input type="radio" name="hauptgang" value="Gebratenes Dorschfilet">
+              <div class="menucard-title">Gebratenes Dorschfilet</div>
+              <div class="menucard-desc">
+                mit gemischtem Gemüse, Bratkartoffeln und Senfsauce
+              </div>
+            </label>
+
+            <label class="menucard">
+              <input type="radio" name="hauptgang" value="Steinpilzravioli (vegetarisch)">
+              <div class="menucard-title">Steinpilzravioli (vegetarisch)</div>
+              <div class="menucard-desc">
+                in Nussbutter gebraten mit Frühlingslauch und Cherrytomaten,
+                dazu Rucola und Parmesan
+              </div>
+            </label>
+
+            <label class="menucard">
+              <input type="radio" name="hauptgang" value="Gar kein Essen">
+              <div class="menucard-title">Gar kein Essen</div>
+              <div class="menucard-desc">
+                Ich möchte kein Menü.
+              </div>
+            </label>
+          </div>
+
+          <p style="margin:18px 0;">***</p>
+
+          <p style="font-size:20px;">Dessertteller</p>
+          <p>Panna Cotta, Mousse au chocolat und ein saisonales Sorbet</p>
+
+          <!-- Kennzeichnung, dass dies Menüzusage ist -->
+          <input type="hidden" name="typ" value="Menüauswahl">
+
+          <div class="button-row">
+            <button type="submit" class="btn-main">
+              Auswahl bestätigen
+            </button>
+          </div>
+
+          <p id="menu-status" class="status-text"></p>
+        </form>
+
+        <button class="btn-link" data-goto="tagesablauf">
+          ← Zurück zum Tagesablauf
+        </button>
       </section>
 
-      <!-- VIEW 5: DANKE -->
+      <!-- VIEW 5: DANKE (optional nach Nutzung) -->
       <section data-view="danke">
-        <h1>Danke! 💛</h1>
-        <h2>Wir haben eure Rückmeldung erhalten.</h2>
+        <h3>Danke! 💛</h3>
         <p style="margin-top:18px;">
-          Wir freuen uns riesig darauf, mit euch unser Hochzeitsfestival zu feiern.
+          Wir haben deine Rückmeldung erhalten und freuen uns riesig darauf,
+          mit euch unser Hochzeitsfestival zu feiern.
         </p>
         <button class="btn-main" data-goto="invitation" style="margin-top:30px;">
           Zurück zur Einladung
@@ -465,30 +561,58 @@
     btn.addEventListener('click', () => showView(btn.getAttribute('data-goto')))
   );
 
-  // Formular-Submit via Formspree
-  const form = document.getElementById('rsvp-form');
-  const statusEl = document.getElementById('form-status');
-  if (form) {
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      statusEl.textContent = 'Sende deine Antwort...';
+  // Zusage-Formular
+  const rsvpForm = document.getElementById('rsvp-form');
+  const rsvpStatus = document.getElementById('rsvp-status');
 
-      const data = new FormData(form);
+  if (rsvpForm) {
+    rsvpForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      rsvpStatus.textContent = 'Sende deine Zusage...';
+
+      const data = new FormData(rsvpForm);
       try {
-        const response = await fetch(form.action, {
-          method: form.method,
+        const response = await fetch(rsvpForm.action, {
+          method: rsvpForm.method,
           body: data,
           headers: { 'Accept': 'application/json' }
         });
-
         if (response.ok) {
-          statusEl.textContent = 'Danke! Deine Antwort wurde erfolgreich gesendet.';
-          form.reset();
+          rsvpStatus.textContent = 'Danke! Eure Zusage ist bei uns angekommen.';
+          rsvpForm.reset();
         } else {
-          statusEl.textContent = 'Ups, etwas ist schiefgelaufen. Bitte versuche es später erneut.';
+          rsvpStatus.textContent = 'Ups, da ist etwas schiefgelaufen. Bitte versucht es später noch einmal.';
         }
-      } catch {
-        statusEl.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung.';
+      } catch (err) {
+        rsvpStatus.textContent = 'Verbindungsfehler. Bitte überprüft eure Internetverbindung.';
+      }
+    });
+  }
+
+  // Menü-Formular
+  const menuForm = document.getElementById('menu-form');
+  const menuStatus = document.getElementById('menu-status');
+
+  if (menuForm) {
+    menuForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      menuStatus.textContent = 'Sende deine Menüauswahl...';
+
+      const data = new FormData(menuForm);
+      try {
+        const response = await fetch(menuForm.action, {
+          method: menuForm.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          menuStatus.textContent = 'Danke! Deine Menüauswahl wurde gespeichert.';
+          menuForm.reset();
+        } else {
+          menuStatus.textContent = 'Da ging etwas schief – bitte versuche es später erneut.';
+        }
+      } catch (err) {
+        menuStatus.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung.';
       }
     });
   }
