@@ -338,11 +338,13 @@
           ob ihr dabei sein könnt.
         </p>
 
-        <form id="rsvp-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:22px;">
+        <!-- HIER: nur Name merken, NICHT mehr an Formspree senden -->
+        <form id="rsvp-form" style="margin-top:22px;">
           <label>
             Dein/Euer Name
             <input
               type="text"
+              id="rsvp-name"
               name="name"
               list="namenliste"
               placeholder="Dein/Euer Name"
@@ -356,8 +358,6 @@
             <option value="Jens"></option>
             <option value="Kjell"></option>
           </datalist>
-
-          <input type="hidden" name="typ" value="Zusage">
 
           <div class="button-row">
             <button type="submit" class="btn-main">
@@ -445,6 +445,7 @@
 
         <p style="font-size:20px;">Hauptgang</p>
 
+        <!-- HIER: Formspree-Endpoint – wird NUR hier benutzt -->
         <form id="menu-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:12px;">
           <div class="menucards">
             <label class="menucard">
@@ -485,8 +486,6 @@
 
           <p style="font-size:20px;">Dessertteller</p>
           <p>Panna Cotta, Mousse au chocolat und ein saisonales Sorbet</p>
-
-          <input type="hidden" name="typ" value="Menüauswahl">
 
           <div class="button-row">
             <button type="submit" class="btn-main">
@@ -533,39 +532,31 @@
     btn.addEventListener('click', () => showView(btn.getAttribute('data-goto')))
   );
 
-  // Zusage-Formular
+  // --- Zusage / Name merken ---
+  let guestName = '';
+
   const rsvpForm = document.getElementById('rsvp-form');
   const rsvpStatus = document.getElementById('rsvp-status');
+  const rsvpNameInput = document.getElementById('rsvp-name');
   const toScheduleBtn = document.getElementById('to-schedule-btn');
 
   if (rsvpForm) {
-    rsvpForm.addEventListener('submit', async (e) => {
+    rsvpForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      rsvpStatus.textContent = 'Sende deine Zusage...';
-
-      const data = new FormData(rsvpForm);
-      try {
-        const response = await fetch(rsvpForm.action, {
-          method: rsvpForm.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-          rsvpStatus.textContent = 'Danke! Eure Zusage ist bei uns angekommen.';
-          rsvpForm.reset();
-          if (toScheduleBtn) {
-            toScheduleBtn.disabled = false;
-          }
-        } else {
-          rsvpStatus.textContent = 'Ups, da ist etwas schiefgelaufen. Bitte versucht es später noch einmal.';
-        }
-      } catch (err) {
-        rsvpStatus.textContent = 'Verbindungsfehler. Bitte überprüft eure Internetverbindung.';
+      const name = rsvpNameInput.value.trim();
+      if (!name) {
+        rsvpStatus.textContent = 'Bitte gib euren Namen ein.';
+        return;
+      }
+      guestName = name;
+      rsvpStatus.textContent = 'Danke! Eure Zusage ist gespeichert – weiter zum Tagesablauf.';
+      if (toScheduleBtn) {
+        toScheduleBtn.disabled = false;
       }
     });
   }
 
-  // Menü-Formular – nach Erfolg auf „Vielen Dank“-Seite wechseln
+  // --- Menü / Formspree-Mail nur am Ende ---
   const menuForm = document.getElementById('menu-form');
   const menuStatus = document.getElementById('menu-status');
 
@@ -574,21 +565,40 @@
       e.preventDefault();
       menuStatus.textContent = 'Sende deine Menüauswahl...';
 
-      const data = new FormData(menuForm);
+      if (!guestName) {
+        menuStatus.textContent = 'Bitte zuerst euren Namen bei der Anmeldung eintragen.';
+        showView('rsvp');
+        return;
+      }
+
+      const selected = menuForm.querySelector('input[name="hauptgang"]:checked');
+      if (!selected) {
+        menuStatus.textContent = 'Bitte wähle einen Hauptgang aus.';
+        return;
+      }
+
+      const endpoint = menuForm.action;
+      const data = new FormData();
+      data.append('typ', 'Menüauswahl');
+      data.append('name', guestName);
+      data.append('hauptgang', selected.value);
+
       try {
-        const response = await fetch(menuForm.action, {
-          method: menuForm.method,
+        const response = await fetch(endpoint, {
+          method: 'POST',
           body: data,
           headers: { 'Accept': 'application/json' }
         });
+
         if (response.ok) {
           menuForm.reset();
           menuStatus.textContent = '';
-          showView('danke');   // ← hier kommt jetzt deine Vielen-Dank-Seite
+          showView('danke');  // Vielen-Dank-Seite
         } else {
           menuStatus.textContent = 'Da ging etwas schief – bitte versuche es später erneut.';
         }
       } catch (err) {
+        console.error(err);
         menuStatus.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung.';
       }
     });
@@ -597,4 +607,3 @@
 
 </body>
 </html>
-
