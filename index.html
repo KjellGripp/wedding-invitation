@@ -2,569 +2,173 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Wedding Invitation Glennie & Kjell</title>
-
-  <!-- Schriften -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
-
+  <title>Glennie & Kjell – Hochzeitseinladung</title>
   <style>
-    :root {
-      --bordeaux: #21060C;
-      --bordeaux-soft: rgba(46, 10, 18, 0.85);
-      --gold: #fbd283;
-      --gold-soft: #e2b861;
-      --eggshell: #f0ead6;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
       font-family: "Cormorant Garamond", serif;
-      background: none;
+      background: url('hochzeit.png') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       min-height: 100vh;
-      color: var(--eggshell);
-      padding: 40px 10px;
-      position: relative;
-      overflow-y: auto; /* Scrollbar erlauben */
+      color: #F0EAD6;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 0;
     }
-
-    /* Hintergrundvideo */
-    #bg-video {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      filter: brightness(0.75);
-    }
-
-    main {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .page-frame {
-      width: 100%;
-      max-width: 980px;
-      background: var(--bordeaux-soft);
-      border-radius: 28px;
+    .karte {
+      max-width: 550px;
+      margin: auto;
+      background: rgba(46, 10, 18, 0.55);
       border: 1px solid rgba(255, 215, 160, 0.45);
-      box-shadow:
-        0 0 35px rgba(0, 0, 0, 0.6),
-        0 0 25px rgba(255, 200, 120, 0.2);
-      padding: 40px 40px 32px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      animation: fadeIn 0.7s ease-out;
-      position: relative;
-      overflow: hidden;
-      margin: 0 auto;
+      border-radius: 25px;
+      padding: 40px 50px;
+      box-shadow: 0 0 35px rgba(0,0,0,0.6), 0 0 25px rgba(255,200,120,0.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      animation: fadeIn 1.2s ease-out;
     }
-
-    .page-inner {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
     h1 {
+      text-align: center;
       font-family: "Great Vibes", cursive;
-      font-size: 62px;
-      margin: 0;
-      line-height: 1.1;
-      color: var(--gold);
+      font-size: 58px;
+      margin-bottom: 5px;
+      color: #FDB813;
     }
-
     h2 {
-      font-size: 24px;
-      margin: 12px 0 0;
-      font-weight: 400;
-    }
-
-    h3 {
-      font-family: "Great Vibes", cursive;
-      font-size: 46px;
-      color: var(--gold);
-      margin: 0 0 12px;
-    }
-
-    p { margin: 6px 0; font-size: 18px; }
-
-    .subtitle-small {
-      text-transform: uppercase;
-      letter-spacing: .22em;
-      font-size: 13px;
-      opacity: 0.9;
-    }
-
-    .ring-icon {
-      margin: 24px 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    .ring-icon img {
-      width: 130px;
-      height: auto;
-    }
-
-    .btn-main {
-      background: var(--gold);
-      color: var(--bordeaux);
-      border: none;
-      padding: 12px 28px;
-      border-radius: 999px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      text-align: center;
       margin-top: 0;
-      text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, opacity 0.15s ease;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-      min-width: 230px;
+      font-weight: 300;
+      font-size: 22px;
     }
-
-    .btn-main:hover {
-      background: #ffe09a;
-      transform: translateY(-1px);
-      box-shadow: 0 14px 24px rgba(0,0,0,0.28);
+    h3 {
+      color: #FDB813;
+      margin-bottom: 10px;
     }
-
-    .btn-main[disabled] {
-      opacity: 0.45;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
+    .abschnitt {
+      margin: 30px 0;
     }
-
-    .btn-link {
-      border: none;
-      background: transparent;
-      color: rgba(251, 210, 131, 0.8);
-      font-size: 14px;
-      text-decoration: none;
-      margin-top: 18px;
-      cursor: pointer;
-    }
-
-    .btn-link:hover { color: var(--gold); }
-
-    .button-row {
-      margin-top: 32px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-    }
-
-    .flow-block { margin-top: 40px; }
-
-    .tagespunkte {
-      margin-top: 28px;
-      text-align: left;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .tagespunkt {
-      display: flex;
-      justify-content: space-between;
-      gap: 32px;
-      margin-bottom: 22px;
-      align-items: baseline;
-    }
-
-    .tages-left {
-      font-family: "Great Vibes", cursive;
-      font-size: 32px;
-      color: var(--gold);
-    }
-
-    .tages-right {
-      text-align: right;
-      font-size: 17px;
-    }
-
-    .menucards {
-      margin-top: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      text-align: left;
-    }
-
-    .menucard {
-      border-radius: 10px;
-      border: 1px solid rgba(255, 215, 160, 0.6);
-      padding: 10px 16px;
-      cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease;
-    }
-
-    .menucard-title {
-      font-weight: 600;
-      font-size: 18px;
-    }
-
-    .menucard-desc {
-      font-size: 15px;
-      opacity: 0.9;
-      margin-top: 2px;
-    }
-
-    .menucard input { margin-right: 8px; }
-
-    .menucard:hover { background: rgba(0,0,0,0.2); }
-
-    form {
-      max-width: 440px;
-      margin: 0 auto;
-      text-align: left;
-    }
-
     label {
       display: block;
-      margin-bottom: 10px;
-      font-size: 16px;
+      margin-bottom: 12px;
     }
-
     input[type="text"] {
       width: 100%;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 215, 160, 0.6);
-      background: rgba(247, 242, 233, 0.07);
-      color: var(--eggshell);
-      font-family: inherit;
-      font-size: 15px;
+      padding: 12px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #b48a4a;
+      background: rgba(247, 242, 233, 0.4);
     }
-
-    input[type="text"]:focus {
-      outline: none;
-      border-color: var(--gold);
-      box-shadow: 0 0 0 1px rgba(251,210,131,0.4);
+    input[type="radio"] {
+      margin-right: 8px;
     }
-
-    .status-text {
-      margin-top: 12px;
-      font-size: 14px;
-      opacity: 0.9;
+    .essen-option {
+      margin-bottom: 8px;
+    }
+    button {
+      background: rgba(240, 234, 214, 0.75);
+      color: #21060C;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      display: block;
+      margin: 25px auto 0;
+      transition: 0.2s;
+    }
+    button:hover:not([disabled]) {
+      background: transparent;
+      color: #F0EAD6;
+      border: 2px solid #F0EAD6;
+    }
+    button[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #form-status {
       text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+      min-height: 18px;
     }
-
-    [data-view] { display: none; }
-    [data-view].is-active { display: block; }
-
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(18px); }
+      from { opacity: 0; transform: translateY(25px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      body { padding: 20px 8px; }
-      .page-frame { padding: 24px 18px 22px; border-radius: 20px; }
-      h1 { font-size: 44px; }
-      h2 { font-size: 18px; }
-      h3 { font-size: 34px; }
-      p { font-size: 16px; }
-      .tagespunkt { flex-direction: column; align-items: flex-start; gap: 4px; }
-      .tages-right { text-align: left; }
-      .ring-icon img { width: 100px; }
-    }
-
-    @media (max-width: 480px) {
-      h1 { font-size: 36px; }
-      h2 { font-size: 16px; }
-      h3 { font-size: 30px; }
     }
   </style>
 </head>
 <body>
+<div class="karte">
+  <form id="rsvp-form">
+    <h1>Glennie & Kjell</h1>
+    <h2>Hochzeitseinladung</h2>
 
-  <!-- Hintergrundvideo -->
-  <video autoplay muted loop playsinline id="bg-video">
-    <source src="livebg.mp4" type="video/mp4">
-  </video>
+    <p style="text-align:center; margin-top: 20px; font-size: 18px;">
+      Wir freuen uns sehr, dich zu unserem besonderen Tag einzuladen.
+    </p>
 
-<main>
-  <div class="page-frame">
-    <div class="page-inner">
-
-      <!-- VIEW 1: EINLADUNG -->
-      <section data-view="invitation" class="is-active">
-        <p class="subtitle-small">HOCHZEITSEINLADUNG</p>
-
-        <div style="display:flex; flex-direction:column; align-items:center; margin-top:10px;">
-          <p style="margin:4px 0 0; font-size:16px;">von</p>
-          <h1>Glennie</h1>
-          <div class="ring-icon">
-            <img src="ring.png" alt="Ringe">
-          </div>
-          <h1>Kjell</h1>
-        </div>
-
-        <p class="flow-block" style="margin-top:26px; font-size:18px;">
-          am <strong>26.06.2026 um 15 Uhr</strong><br>
-          in <strong>Strande</strong>
-        </p>
-
-        <div class="button-row">
-          <button class="btn-main" data-goto="rsvp">
-            Ich bin dabei!
-          </button>
-        </div>
-
-        <button class="btn-link" data-goto="rsvp" style="margin-top:22px;">
-          Zur Admin-Ansicht
-        </button>
-      </section>
-
-      <!-- VIEW 2: ZUSAGE / RSVP -->
-      <section data-view="rsvp">
-        <h3>Wir freuen uns auf Euch!</h3>
-        <p>
-          Bitte gebt uns bis zum <strong>26.04.2026</strong> Bescheid,<br>
-          ob ihr dabei sein könnt.
-        </p>
-
-        <form id="rsvp-form" style="margin-top:22px;">
-          <label>
-            Dein/Euer Name
-            <input
-              type="text"
-              id="name-input"
-              name="name"
-              list="namenliste"
-              placeholder="Dein/Euer Name"
-              required
-            >
-          </label>
-
-          <datalist id="namenliste">
-            <option value="Finn Ole"></option>
-            <option value="Glennie"></option>
-            <option value="Jens"></option>
-            <option value="Kjell"></option>
-          </datalist>
-
-          <div class="button-row">
-            <button type="submit" class="btn-main">
-              Zusage bestätigen
-            </button>
-            <button
-              type="button"
-              class="btn-main"
-              id="to-schedule-btn"
-              data-goto="tagesablauf"
-              disabled
-            >
-              Zum Tagesablauf
-            </button>
-          </div>
-
-          <p id="rsvp-status" class="status-text"></p>
-        </form>
-
-        <button class="btn-link" data-goto="invitation">
-          ← Zurück zur Einladung
-        </button>
-      </section>
-
-      <!-- VIEW 3: TAGESABLAUF -->
-      <section data-view="tagesablauf">
-        <h3>Tagesablauf</h3>
-        <p>Wir können es kaum erwarten, diesen Tag mit euch zu verbringen.</p>
-
-        <div class="tagespunkte">
-          <div class="tagespunkt">
-            <div class="tages-left">Trauung &amp; Sektempfang</div>
-            <div class="tages-right">
-              15 Uhr<br>
-              am Bermuda Dreieck Strande
-            </div>
-          </div>
-
-          <div class="tagespunkt">
-            <div class="tages-left">Fotoshooting /<br>Kaffee &amp; Kuchen</div>
-            <div class="tages-right">
-              16:30 Uhr<br>
-              im Strandhotel
-            </div>
-          </div>
-
-          <div class="tagespunkt">
-            <div class="tages-left">Dinner</div>
-            <div class="tages-right">
-              18 Uhr
-            </div>
-          </div>
-
-          <div class="tagespunkt">
-            <div class="tages-left">Party</div>
-            <div class="tages-right">
-              22 Uhr<br>
-              auf dem Festivalgelände
-            </div>
-          </div>
-        </div>
-
-        <div class="button-row">
-          <a href="hochzeit.ics" class="btn-main" download>
-            Zum Kalender hinzufügen
-          </a>
-          <button class="btn-main" data-goto="menue">
-            Zur Menüauswahl
-          </button>
-        </div>
-
-        <button class="btn-link" data-goto="rsvp">
-          ← Zurück zur Anmeldung
-        </button>
-      </section>
-
-      <!-- VIEW 4: MENÜAUSWAHL -->
-      <section data-view="menue">
-        <h3>Menüauswahl</h3>
-
-        <p style="margin-top:10px; font-size:20px;">Vorspeisenteller</p>
-        <p>Tomate-Mozzarella, Anti-Pasti, Bruschetta, Argentinische Wildgarnele</p>
-
-        <p style="margin:18px 0;">***</p>
-
-        <p style="font-size:20px;">Hauptgang</p>
-
-        <form id="menu-form" style="margin-top:12px;">
-          <div class="menucards">
-            <label class="menucard">
-              <input type="radio" name="hauptgang" value="Tranchiertes Kalbsfilet" required>
-              <div class="menucard-title">Tranchiertes Kalbsfilet</div>
-              <div class="menucard-desc">
-                mit Rosmarinkartoffeln, Speckbohnen und Jus
-              </div>
-            </label>
-
-            <label class="menucard">
-              <input type="radio" name="hauptgang" value="Gebratenes Dorschfilet">
-              <div class="menucard-title">Gebratenes Dorschfilet</div>
-              <div class="menucard-desc">
-                mit gemischtem Gemüse, Bratkartoffeln und Senfsauce
-              </div>
-            </label>
-
-            <label class="menucard">
-              <input type="radio" name="hauptgang" value="Steinpilzravioli (vegetarisch)">
-              <div class="menucard-title">Steinpilzravioli (vegetarisch)</div>
-              <div class="menucard-desc">
-                in Nussbutter gebraten mit Frühlingslauch und Cherrytomaten,
-                dazu Rucola und Parmesan
-              </div>
-            </label>
-
-            <label class="menucard">
-              <input type="radio" name="hauptgang" value="Gar kein Essen">
-              <div class="menucard-title">Gar kein Essen</div>
-              <div class="menucard-desc">
-                Ich möchte kein Menü.
-              </div>
-            </label>
-          </div>
-
-          <p style="margin:18px 0;">***</p>
-
-          <p style="font-size:20px;">Dessertteller</p>
-          <p>Panna Cotta, Mousse au chocolat und ein saisonales Sorbet</p>
-
-          <div class="button-row">
-            <button type="submit" class="btn-main">
-              Auswahl bestätigen
-            </button>
-          </div>
-
-          <p id="menu-status" class="status-text"></p>
-        </form>
-
-        <button class="btn-link" data-goto="tagesablauf">
-          ← Zurück zum Tagesablauf
-        </button>
-      </section>
-
-      <!-- VIEW 5: VIELEN DANK -->
-      <section data-view="danke">
-        <h3>Vielen Dank!</h3>
-        <p style="margin-top:18px;">
-          Wir haben deine Rückmeldung erhalten und<br>
-          freuen uns riesig, diesen besonderen Tag mit dir zu teilen.
-        </p>
-        <div class="button-row" style="margin-top:28px;">
-          <button class="btn-main" data-goto="invitation">
-            Zurück zum Anfang
-          </button>
-        </div>
-      </section>
-
+    <div class="abschnitt">
+      <h3>🧑‍🤝‍🧑 Bitte trage deinen Namen ein</h3>
+      <label>
+        Dein Name:
+        <input type="text" id="name-input" name="name" placeholder="Vor- und Nachname" required>
+      </label>
     </div>
-  </div>
-</main>
+
+    <div class="abschnitt">
+      <h3>📞 Deine Nummer (optional)</h3>
+      <label>
+        Telefonnummer:
+        <input type="text" id="phone-input" name="nummer" placeholder="z.B. 0151 12345678">
+      </label>
+    </div>
+
+    <div class="abschnitt">
+      <h3>🍽️ Menüauswahl</h3>
+      <div class="essen-option">
+        <label><input type="radio" name="essen" value="Fleisch" required> Fleischmenü</label>
+      </div>
+      <div class="essen-option">
+        <label><input type="radio" name="essen" value="Vegan"> Veganes Menü</label>
+      </div>
+      <div class="essen-option">
+        <label><input type="radio" name="essen" value="Vegetarisch"> Vegetarisches Menü</label>
+      </div>
+      <div class="essen-option">
+        <label><input type="radio" name="essen" value="Kinder"> Kindermenü</label>
+      </div>
+    </div>
+
+    <div class="abschnitt">
+      <h3>📩 Teilnahme</h3>
+      <label><input type="radio" name="teilnahme" value="Ja" required> Ich nehme teil</label>
+      <label><input type="radio" name="teilnahme" value="Nein"> Ich kann leider nicht kommen</label>
+    </div>
+
+    <p id="form-status"></p>
+
+    <button type="submit" id="submit-btn">Antwort abschicken</button>
+  </form>
+</div>
 
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-  // Supabase Konfiguration (anon key, RLS bei dir aus)
   const SUPABASE_URL = 'https://dzzqmswinpreukaijf.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6emFxbXN3aW5wcmNldWthamZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMxOTEyODQsImV4cCI6MjA3ODc2NzI4NH0.eIg8hx3kledXENr6CuOMbc4KonENfz6TSpl2be4hwJI';
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  // View-Navigation (unverändert)
-  const sections = document.querySelectorAll('[data-view]');
-  function showView(view) {
-    sections.forEach(sec =>
-      sec.classList.toggle('is-active', sec.getAttribute('data-view') === view)
-    );
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  document.querySelectorAll('[data-goto]').forEach(btn =>
-    btn.addEventListener('click', () => showView(btn.getAttribute('data-goto')))
-  );
-
-  // Zustand über alle Schritte
-  let guestName = '';
-
-  // RSVP-Formular (nur Name speichern & Button freischalten)
-  const rsvpForm = document.getElementById('rsvp-form');
-  const rsvpStatus = document.getElementById('rsvp-status');
+  const form = document.getElementById('rsvp-form');
+  const statusEl = document.getElementById('form-status');
   const nameInput = document.getElementById('name-input');
-  const toScheduleBtn = document.getElementById('to-schedule-btn');
+  const phoneInput = document.getElementById('phone-input');
+  const submitBtn = document.getElementById('submit-btn');
 
-  if (rsvpForm) {
-    rsvpForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = nameInput.value.trim();
-      if (!name) {
-        rsvpStatus.textContent = 'Bitte gib deinen Namen ein.';
-        return;
-      }
-      guestName = name;
-      rsvpStatus.textContent = 'Danke! Deine Zusage ist gespeichert – weiter zum Tagesablauf.';
-      if (toScheduleBtn) {
-        toScheduleBtn.disabled = false;
-      }
-    });
-  }
-
-  // Helper: prüfen, ob Name schon in Supabase existiert
-  async function hasAlreadyAnswered(name) {
+  async function checkAlreadySubmitted(name) {
     const { data, error } = await supabase
       .from('responses')
       .select('id')
@@ -578,62 +182,54 @@
     return data && data.length > 0;
   }
 
-  // Menü-Formular – HIER passiert der Datenbank-Call
-  const menuForm = document.getElementById('menu-form');
-  const menuStatus = document.getElementById('menu-status');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const name = nameInput.value.trim();
+    const nummer = phoneInput.value.trim();
 
-  if (menuForm) {
-    menuForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      menuStatus.textContent = 'Sende deine Menüauswahl...';
+    if (!name) {
+      statusEl.textContent = 'Bitte gib deinen Namen ein.';
+      return;
+    }
 
-      if (!guestName) {
-        alert('Bitte gib zuerst deinen Namen bei der Anmeldung an.');
-        menuStatus.textContent = 'Name fehlt – bitte zuerst anmelden.';
-        showView('rsvp');
-        return;
-      }
+    const essen = form.elements['essen'].value;
+    const teilnahme = form.elements['teilnahme'].value;
 
-      const selected = menuForm.querySelector('input[name="hauptgang"]:checked');
-      if (!selected) {
-        menuStatus.textContent = 'Bitte wähle einen Hauptgang aus.';
-        return;
-      }
+    statusEl.textContent = 'Überprüfe, ob du dich bereits gemeldet hast...';
+    submitBtn.disabled = true;
 
-      const essen = selected.value;
-      const teilnahme = 'Ja';  // hier kannst du später noch differenzieren, falls nötig
+    // 1. Check: Name schon vorhanden?
+    const already = await checkAlreadySubmitted(name);
+    if (already) {
+      alert('Du hast dich bereits registriert. Wenn du etwas ändern möchtest, kontaktiere bitte Glennie & Kjell.');
+      statusEl.textContent = 'Für diesen Namen wurde bereits eine Rückmeldung gespeichert.';
+      submitBtn.disabled = false;
+      return;
+    }
 
-      // Check auf doppelte Einträge
-      const already = await hasAlreadyAnswered(guestName);
-      if (already) {
-        alert('Für diesen Namen wurde bereits eine Rückmeldung gespeichert. Wenn sich etwas geändert hat, meldet euch bitte direkt bei Glennie & Kjell.');
-        menuStatus.textContent = 'Du hast dich bereits gemeldet.';
-        return;
-      }
+    // 2. Datensatz in Supabase eintragen
+    statusEl.textContent = 'Speichere deine Antwort...';
 
-      // Insert in Supabase
-      const { error } = await supabase
-        .from('responses')
-        .insert([{
-          name: guestName,
-          essen,
-          teilnahme,
-          created_at: new Date().toISOString()
-        }]);
+    const { error } = await supabase.from('responses').insert([{
+      name,
+      essen,
+      teilnahme,
+      nummer,                         // ← deine Nummer
+      created_at: new Date().toISOString() // falls kein Default in DB
+    }]);
 
-      if (error) {
-        console.error('Supabase insert error:', error);
-        menuStatus.textContent = 'Da ging etwas schief – bitte versuche es später erneut.';
-        return;
-      }
+    if (error) {
+      console.error('Supabase insert error:', error);
+      statusEl.textContent = 'Fehler beim Senden: ' + (error.message || 'Bitte versuche es später erneut.');
+      submitBtn.disabled = false;
+      return;
+    }
 
-      // Erfolgreich → Danke-Seite
-      menuForm.reset();
-      menuStatus.textContent = '';
-      showView('danke');
-    });
-  }
+    // 3. Fertig
+    statusEl.textContent = 'Danke! Deine Antwort wurde gespeichert.';
+    form.reset();
+    submitBtn.disabled = false;
+  });
 </script>
-
 </body>
 </html>
