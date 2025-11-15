@@ -127,11 +127,13 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      margin-top: 26px;
+      margin-top: 0;
       text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, opacity 0.15s ease;
       box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+      min-width: 220px;
     }
 
     .btn-main:hover {
@@ -140,23 +142,11 @@
       box-shadow: 0 14px 24px rgba(0,0,0,0.28);
     }
 
-    .btn-sec {
-      background: transparent;
-      color: var(--gold);
-      border: 1px solid var(--gold-soft);
-      padding: 10px 24px;
-      border-radius: 999px;
-      font-size: 15px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .btn-sec:hover {
-      background: rgba(0,0,0,0.18);
+    .btn-main[disabled] {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
     }
 
     .btn-link {
@@ -179,13 +169,6 @@
       gap: 16px;
     }
 
-    .muted-small {
-      margin-top: 18px;
-      font-size: 13px;
-      opacity: 0.85;
-    }
-
-    /* Layout für Inhalt */
     .flow-block {
       margin-top: 40px;
     }
@@ -252,7 +235,6 @@
       background: rgba(0,0,0,0.2);
     }
 
-    /* Inputs RSVP */
     form {
       max-width: 440px;
       margin: 0 auto;
@@ -294,7 +276,6 @@
       text-align: center;
     }
 
-    /* Views */
     [data-view] { display: none; }
     [data-view].is-active { display: block; }
 
@@ -397,6 +378,16 @@
             <button type="submit" class="btn-main">
               Zusage bestätigen
             </button>
+            <!-- NEU: Button zum Tagesablauf, anfangs deaktiviert -->
+            <button
+              type="button"
+              class="btn-main"
+              id="to-schedule-btn"
+              data-goto="tagesablauf"
+              disabled
+            >
+              Zum Tagesablauf
+            </button>
           </div>
 
           <p id="rsvp-status" class="status-text"></p>
@@ -404,10 +395,6 @@
 
         <button class="btn-link" data-goto="invitation">
           ← Zurück zur Einladung
-        </button>
-
-        <button class="btn-link" data-goto="tagesablauf">
-          → Zum Tagesablauf
         </button>
       </section>
 
@@ -450,8 +437,8 @@
         </div>
 
         <div class="button-row">
-          <!-- Optional: später echte .ics-Datei hier verlinken -->
-          <a href="hochzeit.ics" class="btn-sec" download>
+          <!-- JETZT: Beide als gleich große Buttons -->
+          <a href="hochzeit.ics" class="btn-main" download>
             Zum Kalender hinzufügen
           </a>
           <button class="btn-main" data-goto="menue">
@@ -533,7 +520,7 @@
         </button>
       </section>
 
-      <!-- VIEW 5: DANKE (optional nach Nutzung) -->
+      <!-- VIEW 5: DANKE (optional) -->
       <section data-view="danke">
         <h3>Danke! 💛</h3>
         <p style="margin-top:18px;">
@@ -564,6 +551,7 @@
   // Zusage-Formular
   const rsvpForm = document.getElementById('rsvp-form');
   const rsvpStatus = document.getElementById('rsvp-status');
+  const toScheduleBtn = document.getElementById('to-schedule-btn');
 
   if (rsvpForm) {
     rsvpForm.addEventListener('submit', async (e) => {
@@ -580,6 +568,10 @@
         if (response.ok) {
           rsvpStatus.textContent = 'Danke! Eure Zusage ist bei uns angekommen.';
           rsvpForm.reset();
+          // Button zum Tagesablauf freischalten
+          if (toScheduleBtn) {
+            toScheduleBtn.disabled = false;
+          }
         } else {
           rsvpStatus.textContent = 'Ups, da ist etwas schiefgelaufen. Bitte versucht es später noch einmal.';
         }
