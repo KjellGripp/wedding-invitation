@@ -63,7 +63,7 @@
       animation: fadeIn 0.7s ease-out;
       position: relative;
       overflow: hidden;
-      margin: 0 auto; /* zentrieren */
+      margin: 0 auto;
     }
 
     .page-inner {
@@ -119,7 +119,7 @@
       border: none;
       padding: 12px 28px;
       border-radius: 999px;
-      font-size: 16px;           /* gleiche Schriftgröße für alle Buttons */
+      font-size: 16px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -130,7 +130,7 @@
       text-decoration: none;
       transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, opacity 0.15s ease;
       box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-      min-width: 230px;          /* gleiche Breite */
+      min-width: 230px;
     }
 
     .btn-main:hover {
@@ -502,16 +502,18 @@
         </button>
       </section>
 
-      <!-- VIEW 5: DANKE -->
+      <!-- VIEW 5: VIELEN DANK -->
       <section data-view="danke">
-        <h3>Danke! 💛</h3>
+        <h3>Vielen Dank!</h3>
         <p style="margin-top:18px;">
-          Wir haben deine Rückmeldung erhalten und freuen uns riesig darauf,
-          mit euch unser Hochzeitsfestival zu feiern.
+          Wir haben deine Rückmeldung erhalten und<br>
+          freuen uns riesig, diesen besonderen Tag mit dir zu teilen.
         </p>
-        <button class="btn-main" data-goto="invitation" style="margin-top:30px;">
-          Zurück zur Einladung
-        </button>
+        <div class="button-row" style="margin-top:28px;">
+          <button class="btn-main" data-goto="invitation">
+            Zurück zum Anfang
+          </button>
+        </div>
       </section>
 
     </div>
@@ -525,7 +527,6 @@
     sections.forEach(sec =>
       sec.classList.toggle('is-active', sec.getAttribute('data-view') === view)
     );
-    // Beim View-Wechsel zum Anfang scrollen
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   document.querySelectorAll('[data-goto]').forEach(btn =>
@@ -564,7 +565,7 @@
     });
   }
 
-  // Menü-Formular
+  // Menü-Formular – nach Erfolg auf „Vielen Dank“-Seite wechseln
   const menuForm = document.getElementById('menu-form');
   const menuStatus = document.getElementById('menu-status');
 
@@ -581,8 +582,9 @@
           headers: { 'Accept': 'application/json' }
         });
         if (response.ok) {
-          menuStatus.textContent = 'Danke! Deine Menüauswahl wurde gespeichert.';
           menuForm.reset();
+          menuStatus.textContent = '';
+          showView('danke');   // ← hier kommt jetzt deine Vielen-Dank-Seite
         } else {
           menuStatus.textContent = 'Da ging etwas schief – bitte versuche es später erneut.';
         }
