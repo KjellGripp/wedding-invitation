@@ -28,9 +28,10 @@
       color: var(--eggshell);
       padding: 40px 10px;
       position: relative;
-      overflow-y: auto;
+      overflow-y: auto; /* Scrollbar erlauben */
     }
 
+    /* Hintergrundvideo */
     #bg-video {
       position: fixed;
       inset: 0;
@@ -269,6 +270,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Responsive */
     @media (max-width: 768px) {
       body { padding: 20px 8px; }
       .page-frame { padding: 24px 18px 22px; border-radius: 20px; }
@@ -290,6 +292,7 @@
 </head>
 <body>
 
+  <!-- Hintergrundvideo -->
   <video autoplay muted loop playsinline id="bg-video">
     <source src="livebg.mp4" type="video/mp4">
   </video>
@@ -301,6 +304,7 @@
       <!-- VIEW 1: EINLADUNG -->
       <section data-view="invitation" class="is-active">
         <p class="subtitle-small">HOCHZEITSEINLADUNG</p>
+
         <div style="display:flex; flex-direction:column; align-items:center; margin-top:10px;">
           <p style="margin:4px 0 0; font-size:16px;">von</p>
           <h1>Glennie</h1>
@@ -320,18 +324,34 @@
             Ich bin dabei!
           </button>
         </div>
+
+        <button class="btn-link" data-goto="rsvp" style="margin-top:22px;">
+          Zur Admin-Ansicht
+        </button>
       </section>
 
-      <!-- VIEW 2: ZUSAGE -->
+      <!-- VIEW 2: ZUSAGE / RSVP -->
       <section data-view="rsvp">
         <h3>Wir freuen uns auf Euch!</h3>
-        <p>Bitte gebt uns bis zum <strong>26.04.2026</strong> Bescheid, ob ihr dabei sein könnt.</p>
+        <p>
+          Bitte gebt uns bis zum <strong>26.04.2026</strong> Bescheid,<br>
+          ob ihr dabei sein könnt.
+        </p>
 
+        <!-- HIER: nur Name merken, NICHT mehr an Formspree senden -->
         <form id="rsvp-form" style="margin-top:22px;">
           <label>
             Dein/Euer Name
-            <input type="text" id="rsvp-name" name="name" list="namenliste" placeholder="Dein/Euer Name" required>
+            <input
+              type="text"
+              id="rsvp-name"
+              name="name"
+              list="namenliste"
+              placeholder="Dein/Euer Name"
+              required
+            >
           </label>
+
           <datalist id="namenliste">
             <option value="Finn Ole"></option>
             <option value="Glennie"></option>
@@ -340,11 +360,26 @@
           </datalist>
 
           <div class="button-row">
-            <button type="submit" class="btn-main">Zusage bestätigen</button>
-            <button type="button" class="btn-main" id="to-schedule-btn" data-goto="tagesablauf" disabled>Zum Tagesablauf</button>
+            <button type="submit" class="btn-main">
+              Zusage bestätigen
+            </button>
+            <button
+              type="button"
+              class="btn-main"
+              id="to-schedule-btn"
+              data-goto="tagesablauf"
+              disabled
+            >
+              Zum Tagesablauf
+            </button>
           </div>
+
           <p id="rsvp-status" class="status-text"></p>
         </form>
+
+        <button class="btn-link" data-goto="invitation">
+          ← Zurück zur Einladung
+        </button>
       </section>
 
       <!-- VIEW 3: TAGESABLAUF -->
@@ -354,77 +389,129 @@
 
         <div class="tagespunkte">
           <div class="tagespunkt">
-            <div class="tages-left">Trauung & Sektempfang</div>
-            <div class="tages-right">15 Uhr<br>am Bermuda Dreieck Strande</div>
+            <div class="tages-left">Trauung &amp; Sektempfang</div>
+            <div class="tages-right">
+              15 Uhr<br>
+              am Bermuda Dreieck Strande
+            </div>
           </div>
+
           <div class="tagespunkt">
-            <div class="tages-left">Fotoshooting / Kaffee & Kuchen</div>
-            <div class="tages-right">16:30 Uhr<br>im Strandhotel</div>
+            <div class="tages-left">Fotoshooting /<br>Kaffee &amp; Kuchen</div>
+            <div class="tages-right">
+              16:30 Uhr<br>
+              im Strandhotel
+            </div>
           </div>
+
           <div class="tagespunkt">
             <div class="tages-left">Dinner</div>
-            <div class="tages-right">18 Uhr</div>
+            <div class="tages-right">
+              18 Uhr
+            </div>
           </div>
+
           <div class="tagespunkt">
             <div class="tages-left">Party</div>
-            <div class="tages-right">22 Uhr<br>auf dem Festivalgelände</div>
+            <div class="tages-right">
+              22 Uhr<br>
+              auf dem Festivalgelände
+            </div>
           </div>
         </div>
 
         <div class="button-row">
-          <button class="btn-main" data-goto="menue">Zur Menüauswahl</button>
+          <a href="hochzeit.ics" class="btn-main" download>
+            Zum Kalender hinzufügen
+          </a>
+          <button class="btn-main" data-goto="menue">
+            Zur Menüauswahl
+          </button>
         </div>
+
+        <button class="btn-link" data-goto="rsvp">
+          ← Zurück zur Anmeldung
+        </button>
       </section>
 
-      <!-- VIEW 4: MENÜ -->
+      <!-- VIEW 4: MENÜAUSWAHL -->
       <section data-view="menue">
         <h3>Menüauswahl</h3>
+
         <p style="margin-top:10px; font-size:20px;">Vorspeisenteller</p>
         <p>Tomate-Mozzarella, Anti-Pasti, Bruschetta, Argentinische Wildgarnele</p>
+
         <p style="margin:18px 0;">***</p>
+
         <p style="font-size:20px;">Hauptgang</p>
 
+        <!-- HIER: Formspree-Endpoint – wird NUR hier benutzt -->
         <form id="menu-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:12px;">
           <div class="menucards">
             <label class="menucard">
               <input type="radio" name="hauptgang" value="Tranchiertes Kalbsfilet" required>
               <div class="menucard-title">Tranchiertes Kalbsfilet</div>
-              <div class="menucard-desc">mit Rosmarinkartoffeln, Speckbohnen und Jus</div>
+              <div class="menucard-desc">
+                mit Rosmarinkartoffeln, Speckbohnen und Jus
+              </div>
             </label>
+
             <label class="menucard">
               <input type="radio" name="hauptgang" value="Gebratenes Dorschfilet">
               <div class="menucard-title">Gebratenes Dorschfilet</div>
-              <div class="menucard-desc">mit Gemüse, Bratkartoffeln und Senfsauce</div>
+              <div class="menucard-desc">
+                mit gemischtem Gemüse, Bratkartoffeln und Senfsauce
+              </div>
             </label>
+
             <label class="menucard">
               <input type="radio" name="hauptgang" value="Steinpilzravioli (vegetarisch)">
               <div class="menucard-title">Steinpilzravioli (vegetarisch)</div>
-              <div class="menucard-desc">in Nussbutter mit Frühlingslauch & Cherrytomaten</div>
+              <div class="menucard-desc">
+                in Nussbutter gebraten mit Frühlingslauch und Cherrytomaten,
+                dazu Rucola und Parmesan
+              </div>
             </label>
+
             <label class="menucard">
               <input type="radio" name="hauptgang" value="Gar kein Essen">
               <div class="menucard-title">Gar kein Essen</div>
-              <div class="menucard-desc">Ich möchte kein Menü.</div>
+              <div class="menucard-desc">
+                Ich möchte kein Menü.
+              </div>
             </label>
           </div>
 
           <p style="margin:18px 0;">***</p>
+
           <p style="font-size:20px;">Dessertteller</p>
           <p>Panna Cotta, Mousse au chocolat und ein saisonales Sorbet</p>
 
           <div class="button-row">
-            <button type="submit" class="btn-main">Auswahl bestätigen</button>
+            <button type="submit" class="btn-main">
+              Auswahl bestätigen
+            </button>
           </div>
+
           <p id="menu-status" class="status-text"></p>
         </form>
+
+        <button class="btn-link" data-goto="tagesablauf">
+          ← Zurück zum Tagesablauf
+        </button>
       </section>
 
-      <!-- VIEW 5: DANKE -->
+      <!-- VIEW 5: VIELEN DANK -->
       <section data-view="danke">
         <h3>Vielen Dank!</h3>
-        <p style="margin-top:18px;">Wir haben deine Rückmeldung erhalten und freuen uns riesig!</p>
+        <p style="margin-top:18px;">
+          Wir haben deine Rückmeldung erhalten und<br>
+          freuen uns riesig, diesen besonderen Tag mit dir zu teilen.
+        </p>
         <div class="button-row" style="margin-top:28px;">
-          <button class="btn-main" data-goto="invitation">Zurück zum Anfang</button>
+          <button class="btn-main" data-goto="invitation">
+            Zurück zum Anfang
+          </button>
         </div>
       </section>
 
@@ -445,9 +532,8 @@
     btn.addEventListener('click', () => showView(btn.getAttribute('data-goto')))
   );
 
-  // --- Zusage / Name merken (KEIN Formspree-Submit) ---
+  // --- Zusage / Name merken ---
   let guestName = '';
-  let hasRsvpYes = false;
 
   const rsvpForm = document.getElementById('rsvp-form');
   const rsvpStatus = document.getElementById('rsvp-status');
@@ -463,7 +549,6 @@
         return;
       }
       guestName = name;
-      hasRsvpYes = true;
       rsvpStatus.textContent = 'Danke! Eure Zusage ist gespeichert – weiter zum Tagesablauf.';
       if (toScheduleBtn) {
         toScheduleBtn.disabled = false;
@@ -471,7 +556,7 @@
     });
   }
 
-  // --- Menü / EINZIGER Formspree-Request ---
+  // --- Menü / Formspree-Mail nur am Ende ---
   const menuForm = document.getElementById('menu-form');
   const menuStatus = document.getElementById('menu-status');
 
@@ -480,7 +565,45 @@
       e.preventDefault();
       menuStatus.textContent = 'Sende deine Menüauswahl...';
 
-      if (!guestName || !hasRsvpYes) {
+      if (!guestName) {
         menuStatus.textContent = 'Bitte zuerst euren Namen bei der Anmeldung eintragen.';
         showView('rsvp');
-       
+        return;
+      }
+
+      const selected = menuForm.querySelector('input[name="hauptgang"]:checked');
+      if (!selected) {
+        menuStatus.textContent = 'Bitte wähle einen Hauptgang aus.';
+        return;
+      }
+
+      const endpoint = menuForm.action;
+      const data = new FormData();
+      data.append('typ', 'Menüauswahl');
+      data.append('name', guestName);
+      data.append('hauptgang', selected.value);
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          menuForm.reset();
+          menuStatus.textContent = '';
+          showView('danke');  // Vielen-Dank-Seite
+        } else {
+          menuStatus.textContent = 'Da ging etwas schief – bitte versuche es später erneut.';
+        }
+      } catch (err) {
+        console.error(err);
+        menuStatus.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung.';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
