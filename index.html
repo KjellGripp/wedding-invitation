@@ -478,70 +478,89 @@
 
       <!-- VIEW 4: MENÜAUSWAHL -->
       <section data-view="menue">
-        <h3>Menüauswahl</h3>
+  <h3>Menüauswahl</h3>
 
-        <p style="margin-top:10px; font-size:20px;">Vorspeisenteller</p>
-        <p>Tomate-Mozzarella, Anti-Pasti, Bruschetta, Argentinische Wildgarnele</p>
+  <p style="margin-top:10px; font-size:20px;">Vorspeisenteller</p>
+  <p>Tomate-Mozzarella, Anti-Pasti, Bruschetta, Argentinische Wildgarnele</p>
 
-        <p style="margin:18px 0;">***</p>
+  <p style="margin:18px 0;">***</p>
 
-        <p style="font-size:20px;">Hauptgang</p>
+  <p style="font-size:20px;">Hauptgang</p>
 
-        <!-- HIER: Formspree-Endpoint – wird NUR hier benutzt -->
-        <form id="menu-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:12px;">
-          <div class="menucards">
-            <label class="menucard">
-              <input type="radio" name="hauptgang" value="Tranchiertes Kalbsfilet" required>
-              <div class="menucard-title">Tranchiertes Kalbsfilet</div>
-              <div class="menucard-desc">
-                mit Rosmarinkartoffeln, Speckbohnen und Jus
-              </div>
-            </label>
+  <!-- HIER: Formspree-Endpoint – wird NUR hier benutzt -->
+  <form id="menu-form" action="https://formspree.io/f/mkgkroqo" method="POST" style="margin-top:12px;">
+    <div class="menucards">
+      <label class="menucard">
+        <input type="radio" name="hauptgang" value="Tranchiertes Kalbsfilet" required>
+        <div class="menucard-title">Tranchiertes Kalbsfilet</div>
+        <div class="menucard-desc">
+          mit Rosmarinkartoffeln, Speckbohnen und Jus
+        </div>
+      </label>
 
-            <label class="menucard">
-              <input type="radio" name="hauptgang" value="Gebratenes Dorschfilet">
-              <div class="menucard-title">Gebratenes Dorschfilet</div>
-              <div class="menucard-desc">
-                mit gemischtem Gemüse, Bratkartoffeln und Senfsauce
-              </div>
-            </label>
+      <label class="menucard">
+        <input type="radio" name="hauptgang" value="Gebratenes Dorschfilet">
+        <div class="menucard-title">Gebratenes Dorschfilet</div>
+        <div class="menucard-desc">
+          mit gemischtem Gemüse, Bratkartoffeln und Senfsauce
+        </div>
+      </label>
 
-            <label class="menucard">
-              <input type="radio" name="hauptgang" value="Steinpilzravioli (vegetarisch)">
-              <div class="menucard-title">Steinpilzravioli (vegetarisch)</div>
-              <div class="menucard-desc">
-                in Nussbutter gebraten mit Frühlingslauch und Cherrytomaten,
-                dazu Rucola und Parmesan
-              </div>
-            </label>
+      <label class="menucard">
+        <input type="radio" name="hauptgang" value="Steinpilzravioli (vegetarisch)">
+        <div class="menucard-title">Steinpilzravioli (vegetarisch)</div>
+        <div class="menucard-desc">
+          in Nussbutter gebraten mit Frühlingslauch und Cherrytomaten,
+          dazu Rucola und Parmesan
+        </div>
+      </label>
 
-            <label class="menucard">
-              <input type="radio" name="hauptgang" value="Gar kein Essen">
-              <div class="menucard-title">Gar kein Essen</div>
-              <div class="menucard-desc">
-                Ich möchte kein Menü.
-              </div>
-            </label>
-          </div>
+      <label class="menucard">
+        <input type="radio" name="hauptgang" value="Kids Menü">
+        <div class="menucard-title">Kids Menü</div>
+        <div class="menucard-desc">
+          Für Kinder – Details in der Kinderkarte.
+        </div>
+      </label>
 
-          <p style="margin:18px 0;">***</p>
+      <label class="menucard">
+        <input type="radio" name="hauptgang" value="Gar kein Essen">
+        <div class="menucard-title">Gar kein Essen</div>
+        <div class="menucard-desc">
+          Ich möchte kein Menü.
+        </div>
+      </label>
+    </div>
 
-          <p style="font-size:20px;">Dessertteller</p>
-          <p>Panna Cotta, Mousse au chocolat und ein saisonales Sorbet</p>
+    <div class="button-row" style="margin-top:14px;">
+      <a 
+        href="https://strandhotel.de/app/uploads/Kinderkarte.pdf" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="btn-link"
+      >
+        Kinderkarte ansehen
+      </a>
+    </div>
 
-          <div class="button-row">
-            <button type="submit" class="btn-main">
-              Auswahl bestätigen
-            </button>
-          </div>
+    <p style="margin:18px 0;">***</p>
 
-          <p id="menu-status" class="status-text"></p>
-        </form>
+    <p style="font-size:20px;">Dessertteller</p>
+    <p>Panna Cotta, Mousse au chocolat und ein saisonales Sorbet</p>
 
-        <button class="btn-link" data-goto="tagesablauf">
-          ← Zurück zum Tagesablauf
-        </button>
-      </section>
+    <div class="button-row">
+      <button type="submit" class="btn-main">
+        Auswahl bestätigen
+      </button>
+    </div>
+
+    <p id="menu-status" class="status-text"></p>
+  </form>
+
+  <button class="btn-link" data-goto="tagesablauf">
+    ← Zurück zum Tagesablauf
+  </button>
+</section>
 
       <!-- VIEW 5: VIELEN DANK -->
       <section data-view="danke">
